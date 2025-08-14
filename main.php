@@ -101,9 +101,30 @@
             }
      }
 
+    function allStats(array $scores){
+        //点数だけを抜き出し配列に格納
+        $scoreOnly = array_column($scores,'score');
+
+        //合計点と平均点を計算
+        $totalScore = array_sum($scoreOnly);
+        $averageScore = $totalScore / count($scoreOnly);
+
+        // 最高点と最低点を取得
+        $maxScore = max($scoreOnly);
+        $minScore = min($scoreOnly);
+
+
+        echo "--- 全員の成績統計 ---<br>\n";
+        echo "合計点: " . $totalScore . "<br>\n";
+        echo "平均点: " . round($averageScore, 2) . "<br>\n";
+        echo "最高点: " . $maxScore . "<br>\n";
+        echo "最低点: " . $minScore . "<br>\n";
+    }
+
     // 関数を実行
     sortHighScore($jsonScores);
     sortLowScore($jsonScores);
     averageScoreByname($scores,'高橋');
+    allStats($scores);
 
 ?>

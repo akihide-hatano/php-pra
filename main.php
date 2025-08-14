@@ -15,6 +15,9 @@
         { "name": "田中", "subject": "社会", "score": 92 }
     ]';
 
+    // 最初にJSONをデコードして、一つの配列変数に格納する
+    $scores = json_decode($jsonScores, true);
+
     function sortHighScore(string $jsonString):void
     {
             $scores = json_decode($jsonString,true);
@@ -76,10 +79,31 @@
             }
      }
 
+     function averageScoreByname(array $scores,string $targetName){
+        //変数の指定と初期化
+        $totalScore = 0;
+         $count = 0;
+
+         foreach( $scores as $student){
+            //名前の一致を確認
+            if($student['name'] === $targetName){
+                $totalScore += $student['score'];
+                $count++;
+            }
+
+        }
+            //平均点を計算
+            if($count > 0){
+                $average = $totalScore / $count;
+                echo "{$targetName}さんの平均点". round($average, 2) . "<br>\n";
+            }else{
+                echo "{$targetName}さんの成績は見つかりませんでした。<br>\n";
+            }
+     }
 
     // 関数を実行
     sortHighScore($jsonScores);
     sortLowScore($jsonScores);
-
+    averageScoreByname($scores,'高橋');
 
 ?>

@@ -18,9 +18,9 @@
     // 最初にJSONをデコードして、一つの配列変数に格納する
     $scores = json_decode($jsonScores, true);
 
-    function sortHighScore(string $jsonString):void
+    function sortHighScore(array $scores):void
     {
-            $scores = json_decode($jsonString,true);
+            // $scores = json_decode($jsonString,true);
 
             //jsonがerrorで取れない場合
             if(json_last_error() !== JSON_ERROR_NONE){
@@ -49,9 +49,7 @@
             }
      }
 
-     function sortLowScore(string $jsonString) : void {
-                    $scores = json_decode($jsonString,true);
-
+     function sortLowScore(array $scores) : void {
             //jsonがerrorで取れない場合
             if(json_last_error() !== JSON_ERROR_NONE){
                 echo "JSONデータのデコードに失敗しました。\n";
@@ -82,9 +80,9 @@
      function averageScoreByname(array $scores,string $targetName){
         //変数の指定と初期化
         $totalScore = 0;
-         $count = 0;
+        $count = 0;
 
-         foreach( $scores as $student){
+        foreach( $scores as $student){
             //名前の一致を確認
             if($student['name'] === $targetName){
                 $totalScore += $student['score'];
@@ -122,8 +120,8 @@
     }
 
     // 関数を実行
-    sortHighScore($jsonScores);
-    sortLowScore($jsonScores);
+    sortHighScore($scores);
+    sortLowScore($scores);
     averageScoreByname($scores,'高橋');
     allStats($scores);
 

@@ -73,4 +73,24 @@
         //見つけたら最高点の人を返す
         return $maxStudent;
     }
+
+    $scores = loadScores();
+
+echo "<h3>元データ</h3>";
+echo "<pre>"; print_r($scores); echo "</pre>";
+
+echo "<h3>高い順</h3>";
+echo "<pre>"; print_r(sortHigh($scores)); echo "</pre>";
+
+echo "<h3>低い順</h3>";
+echo "<pre>"; print_r(sortLow($scores)); echo "</pre>";
+
+echo "<h3>統計</h3>";
+echo "<pre>"; print_r(stats($scores)); echo "</pre>";
+
+echo "<h3>最低点</h3>";
+echo "<pre>"; print_r(findMin($scores)); echo "</pre>";
+
+echo "<h3>最高点</h3>";
+echo "<pre>"; print_r(findMax($scores)); echo "</pre>";
 ?>

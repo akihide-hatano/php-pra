@@ -7,8 +7,22 @@
  * @return void
  */
 
-    // 最初にJSONをデコードして、一つの配列変数に格納する
-    $scores = json_decode($jsonScores, true);
+// JSONファイルを読み込む関数
+function loadScores(): array {
+    $path = __DIR__ . '/data/scores.json';
+    if (!file_exists($path)) {
+        return []; // ファイルがない場合は空配列
+    }
+    $json = file_get_contents($path);
+    $scores = json_decode($json, true);
+
+    // JSONデコード失敗時は空配列
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return [];
+    }
+
+    return $scores;
+}
 
     function sortHighScore(array $scores):void
     {
@@ -136,11 +150,14 @@
     }
     }
 
-    // 関数を実行
-    sortHighScore($scores);
-    sortLowScore($scores);
-    averageScoreByname($scores,'高橋');
-    allStats($scores);
-    fingMinScore($scores);
+        // ここを追加
+        $scores = loadScores() ?? [];
 
+
+        // 関数を実行
+        sortHighScore($scores);
+        sortLowScore($scores);
+        averageScoreByname($scores,'高橋');
+        allStats($scores);
+        fingMinScore($scores);
 ?>

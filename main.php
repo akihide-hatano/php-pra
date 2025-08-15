@@ -119,10 +119,36 @@
         echo "最低点: " . $minScore . "<br>\n";
     }
 
+    function fingMinScore(array $scores){
+        //最低点を見つけるための初期値として、高すぎる数値を設定
+        $minScore = 101;
+        $minScoreStudent = null; //最低点の生徒情報を格納する変数を初期化
+
+        foreach( $scores as $student){
+        if ($student['score'] < $minScore) {
+            // 最低点を更新
+            $minScore = $student['score'];
+            // 最低点を取った生徒の情報を記録
+            $minScoreStudent = $student;
+        }
+    }
+
+            echo "--- 最低点の生徒情報 ---<br>\n";
+    // データが見つかった場合のみ出力
+    if ($minScoreStudent) {
+        echo "名前: " . $minScoreStudent['name'] . "<br>\n";
+        echo "科目: " . $minScoreStudent['subject'] . "<br>\n";
+        echo "点数: " . $minScoreStudent['score'] . "<br>\n";
+    } else {
+        echo "データが見つかりませんでした。<br>\n";
+    }
+    }
+
     // 関数を実行
     sortHighScore($scores);
     sortLowScore($scores);
     averageScoreByname($scores,'高橋');
     allStats($scores);
+    fingMinScore($scores);
 
 ?>

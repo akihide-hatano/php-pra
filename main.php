@@ -7,14 +7,6 @@
  * @return void
  */
 
-    // JSON形式の成績データ（ここでは文字列として定義）
-    $jsonScores = '[
-        { "name": "佐藤", "subject": "数学", "score": 85 },
-        { "name": "鈴木", "subject": "国語", "score": 92 },
-        { "name": "高橋", "subject": "理科", "score": 78 },
-        { "name": "田中", "subject": "社会", "score": 92 }
-    ]';
-
     // 最初にJSONをデコードして、一つの配列変数に格納する
     $scores = json_decode($jsonScores, true);
 

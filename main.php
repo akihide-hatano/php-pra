@@ -26,34 +26,26 @@ function loadScores(): array {
 
     function sortHighScore(array $scores):void
     {
-            // $scores = json_decode($jsonString,true);
 
-            //jsonがerrorで取れない場合
-            if(json_last_error() !== JSON_ERROR_NONE){
-                echo "JSONデータのデコードに失敗しました。\n";
-                return;
+        // //jsonがerrorで取れない場合
+        // if(json_last_error() !== JSON_ERROR_NONE){
+        //     echo "JSONデータのデコードに失敗しました。\n";
+        //     return;
+        // }
+
+        // 点数（score）を基準に降順（高い順）で並べ替え
+        // usortはユーザー定義の比較関数を使って配列をソートする
+        usort($scores, function($a, $b) {
+            if ($b['score'] > $a['score']) {
+                return 1; // bの点数がaより高ければ、bを前にする
+            } elseif ($b['score'] < $a['score']) {
+                return -1; // bの点数がaより低ければ、bを後ろにする
+            } else {
+                return 0; // 点数が同じなら、順序は変えない
             }
-
-            // 点数（score）を基準に降順（高い順）で並べ替え
-            // usortはユーザー定義の比較関数を使って配列をソートする
-            usort($scores, function($a, $b) {
-                if ($b['score'] > $a['score']) {
-                    return 1; // bの点数がaより高ければ、bを前にする
-                } elseif ($b['score'] < $a['score']) {
-                    return -1; // bの点数がaより低ければ、bを後ろにする
-                } else {
-                    return 0; // 点数が同じなら、順序は変えない
-                }
-            });
-
-            // 結果を出力
-            echo "--- 成績ランキング（高い順）---<br>\n";
-            foreach ($scores as $student) {
-                echo "名前: " . $student['name'] . ", ";
-                echo "科目: " . $student['subject'] . ", ";
-                echo "点数: " . $student['score'] . "<br>\n";
-            }
-     }
+        });
+        // return $scores;
+    }
 
      function sortLowScore(array $scores) : void {
             //jsonがerrorで取れない場合
@@ -74,16 +66,9 @@ function loadScores(): array {
                 }
             });
 
-            // 結果を出力
-            echo "--- 成績ランキング（低い順）---<br>\n";
-            foreach ($scores as $student) {
-                echo "名前: " . $student['name'] . ", ";
-                echo "科目: " . $student['subject'] . ", ";
-                echo "点数: " . $student['score'] . "<br>\n";
-            }
-     }
+    }
 
-     function averageScoreByname(array $scores,string $targetName){
+    function averageScoreByname(array $scores,string $targetName){
         //変数の指定と初期化
         $totalScore = 0;
         $count = 0;
@@ -96,14 +81,7 @@ function loadScores(): array {
             }
 
         }
-            //平均点を計算
-            if($count > 0){
-                $average = $totalScore / $count;
-                echo "{$targetName}さんの平均点". round($average, 2) . "<br>\n";
-            }else{
-                echo "{$targetName}さんの成績は見つかりませんでした。<br>\n";
-            }
-     }
+    }
 
     function allStats(array $scores){
         //点数だけを抜き出し配列に格納
@@ -116,13 +94,6 @@ function loadScores(): array {
         // 最高点と最低点を取得
         $maxScore = max($scoreOnly);
         $minScore = min($scoreOnly);
-
-
-        echo "--- 全員の成績統計 ---<br>\n";
-        echo "合計点: " . $totalScore . "<br>\n";
-        echo "平均点: " . round($averageScore, 2) . "<br>\n";
-        echo "最高点: " . $maxScore . "<br>\n";
-        echo "最低点: " . $minScore . "<br>\n";
     }
 
     function fingMinScore(array $scores){
@@ -139,25 +110,16 @@ function loadScores(): array {
         }
     }
 
-            echo "--- 最低点の生徒情報 ---<br>\n";
-    // データが見つかった場合のみ出力
-    if ($minScoreStudent) {
-        echo "名前: " . $minScoreStudent['name'] . "<br>\n";
-        echo "科目: " . $minScoreStudent['subject'] . "<br>\n";
-        echo "点数: " . $minScoreStudent['score'] . "<br>\n";
-    } else {
-        echo "データが見つかりませんでした。<br>\n";
-    }
     }
 
-        // ここを追加
-        $scores = loadScores() ?? [];
+    // ここを追加
+    $scores = loadScores() ?? [];
 
 
-        // 関数を実行
-        sortHighScore($scores);
-        sortLowScore($scores);
-        averageScoreByname($scores,'高橋');
-        allStats($scores);
-        fingMinScore($scores);
+    // 関数を実行
+    sortHighScore($scores);
+    sortLowScore($scores);
+    averageScoreByname($scores,'高橋');
+    allStats($scores);
+    fingMinScore($scores);
 ?>

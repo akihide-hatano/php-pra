@@ -54,8 +54,23 @@
             $minStudent = $student;
         }
     }
+        //見つけたら最低点の人を返す
+        return $minStudent;
+    }
 
-    //見つけたら最低点の人を返す
-    return $minStudent;
-}
+    function findMax(array $scores): ?array{
+        if( !$scores){
+            return null;
+        }
+        $maxStudent = $scores[0];
+
+        foreach($scores as $student){
+            if($student['score'] > $maxStudent['score']){
+                $maxStudent = $student;
+            }
+        }
+
+        //見つけたら最高点の人を返す
+        return $maxStudent;
+    }
 ?>

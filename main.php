@@ -17,8 +17,6 @@ function loadScores(): array {
 
 function sortHighScore(array $scores):void
 {
-    // $scores = json_decode($jsonString,true);
-    
     //jsonがerrorで取れない場合
     if(json_last_error() !== JSON_ERROR_NONE){
         echo "JSONデータのデコードに失敗しました。\n";
